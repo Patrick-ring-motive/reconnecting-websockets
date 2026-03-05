@@ -14,9 +14,6 @@ class ReconnectingWebSockets {
 
         this.isConnected = false;
         this.isStarted = false;
-
-        // Utility helpers
-        this._Q = fn => { try { return fn?.(); } catch {} };
         this._sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
         this._postTask = (callback, opts = {}) => {
             if (typeof scheduler !== 'undefined' && scheduler.postTask) {
