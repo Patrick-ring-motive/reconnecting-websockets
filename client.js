@@ -130,7 +130,7 @@ class ReconnectingWebSockets {
 
     async socket() {
         this.start();
-        while (this.isStarted) {
+        do  {
             if (this.isConnected && this.ws && this.ws.readyState === WebSocket.OPEN) {
                 return this.ws;
             }else{
@@ -141,7 +141,8 @@ class ReconnectingWebSockets {
             }
             await this._sleep(this.options.pingInterval/10);
             await this.waitNotBusy();
-        }
+        }while(this.isStarted)
+        throw new Error('socket not available');
     }
 
     _setupEventListeners() {
